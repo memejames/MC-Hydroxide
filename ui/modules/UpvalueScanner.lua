@@ -263,7 +263,7 @@ function Log.new(closure)
     instance:FindFirstChild("Name").Text = closure.Name
     
     table.foreach(listButton,warn)
-    listButton:SetRightCallback(function()
+    listButton:SetCallback(function()
         selectedLog = log
     end)
     
