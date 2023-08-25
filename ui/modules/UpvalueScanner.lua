@@ -108,6 +108,7 @@ local function addElement(upvalueLog, upvalue, index, value, temporary)
     elementLog.Value.Icon.Image = oh.Constants.Types[elementValueType]
 
     elementLog.MouseButton1Click:Connect(function()
+    	warn("elementLog")
         selectedUpvalue = upvalue
         selectedUpvalueLog = upvalueLog
         selectedElement = index
