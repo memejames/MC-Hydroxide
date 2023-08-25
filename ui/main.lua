@@ -99,7 +99,7 @@ end)
 
 Interface.Name = HttpService:GenerateGUID(false)
 if getHui then
-	Interface.Parent = getHui()
+	Interface.Parent = CoreGui or getHui()
 else
 	if syn then
 		syn.protect_gui(Interface)
