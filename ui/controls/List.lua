@@ -165,7 +165,7 @@ end
 oh.Events.ListInputBegan = UserInput.InputBegan:Connect(function(input)
     if input.KeyCode == Enum.KeyCode.LeftControl then
         ctrlHeld = true
-    elseif not ctrlHeld and input.UserInputType == Enum.UserInputType.MouseButton1 then
+    elseif not ctrlHeld and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
         for _i, list in pairs(lists) do
             if list.Selected then
                 for _k, listButton in pairs(list.Selected) do
