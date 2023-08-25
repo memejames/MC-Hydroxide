@@ -102,7 +102,7 @@ if getHui then
 	Interface.Parent = CoreGui or getHui()
 else
 	if syn then
-		syn.protect_gui(Interface)
+		--syn.protect_gui(Interface)
 	end
 
 	Interface.Parent = CoreGui
