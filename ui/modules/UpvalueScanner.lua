@@ -190,6 +190,17 @@ local function addUpvalue(upvalue, temporary)
             upvalueContextMenu:Show()
         end
     end)
+    upvalueLog.MouseButton1Click:Connect(function()
+        selectedUpvalue = upvalue
+        selectedUpvalueLog = upvalueLog
+        upvalueTypeDropdown:SetSelected(typeof(upvalue.Value))
+
+        if upvalue.Scanned then
+            tableContextMenu:Show()
+        else
+            upvalueContextMenu:Show()
+        end
+    end)
 
     return upvalueLog
 end
