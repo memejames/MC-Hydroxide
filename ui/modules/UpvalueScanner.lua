@@ -616,6 +616,7 @@ changeUpvalueContext:SetCallback(changeUpvalue)
 changeTableContext:SetCallback(changeUpvalue)
 
 changeElementContext:SetCallback(function()
+	warn("Executed")
     if selectedUpvalue and selectedElement then
         local index = selectedElement
         local indexType = type(index)
