@@ -179,17 +179,6 @@ local function addUpvalue(upvalue, temporary)
     upvalueLog.Value.TextColor3 = oh.Constants.Syntax[valueType]
     upvalueLog.Icon.Image = oh.Constants.Types[valueType]
 
-    upvalueLog.MouseButton2Click:Connect(function()
-        selectedUpvalue = upvalue
-        selectedUpvalueLog = upvalueLog
-        upvalueTypeDropdown:SetSelected(typeof(upvalue.Value))
-
-        if upvalue.Scanned then
-            tableContextMenu:Show()
-        else
-            upvalueContextMenu:Show()
-        end
-    end)
     upvalueLog.MouseButton1Click:Connect(function()
         selectedUpvalue = upvalue
         selectedUpvalueLog = upvalueLog
