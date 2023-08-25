@@ -66,8 +66,8 @@ function ListButton.new(instance, list)
     end)
 
     instance.MouseButton1Click:Connect(function()
-        if not ctrlHeld and listButton.RightCallback then
-            listButton.RightCallback()
+        if not ctrlHeld and listButton.Callback then
+            listButton.Callback()
         end
     end)
 
