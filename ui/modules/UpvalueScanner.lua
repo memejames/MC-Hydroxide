@@ -107,7 +107,7 @@ local function addElement(upvalueLog, upvalue, index, value, temporary)
     elementLog.Value.Label.TextColor3 = oh.Constants.Syntax[elementValueType]
     elementLog.Value.Icon.Image = oh.Constants.Types[elementValueType]
 
-    elementLog.MouseButton2Click:Connect(function()
+    elementLog.MouseButton1Click:Connect(function()
         selectedUpvalue = upvalue
         selectedUpvalueLog = upvalueLog
         selectedElement = index
