@@ -262,6 +262,7 @@ function Log.new(closure)
     instance.Size = UDim2.new(1, 0, 0, logHeight)
     instance:FindFirstChild("Name").Text = closure.Name
     
+    table.foreach(listButton,warn)
     listButton:SetRightCallback(function()
         selectedLog = log
     end)
