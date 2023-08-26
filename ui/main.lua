@@ -61,7 +61,7 @@ end
 
 local dragging, dragStart, startPos, Conduct
 
-UserInputService.InputBegan:Connect(function()
+UserInputService.InputBegan:Connect(function(input)
 	
 end)
 
