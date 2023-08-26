@@ -59,7 +59,8 @@ function oh.getStatus()
 	return Status.Text:gsub('• Status: ', '')
 end
 
-local dragging, dragStart, startPos, Conduct
+local dragging, dragStart, startPos
+getgenv().Conduct
 
 UserInputService.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.Touch then
