@@ -27,7 +27,6 @@ if signaluis then
 	signaluis:Disconnect()
 end
 
-if signaluis then signaluis:Disconnect() end
 getgenv().signaluis = UserInputService.InputBegan:Connect(function(input,gp)
 	if (input.UserInputType == Enum.UserInputType.Touch) then
 		conduct += 1
