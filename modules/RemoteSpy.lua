@@ -65,7 +65,6 @@ nmcTrampoline = hookMetaMethod(game, "__namecall", function(self,...)
     end
         
     if remotesViewing[self.ClassName] and self ~= remoteDataEvent and remoteMethods[method] then
-		warn(method)
         local remote = currentRemotes[self]
             
         if not remote then
