@@ -60,6 +60,7 @@ function oh.getStatus()
 end
 
 local dragging, dragStart, startPos
+
 getgenv().Conduct
 
 UserInputService.InputBegan:Connect(function(input)
