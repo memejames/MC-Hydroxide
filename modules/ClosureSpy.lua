@@ -15,24 +15,22 @@ local requiredMethods = {
     ["setConstant"] = true
 }
 
-local eventCallback
-
 -- Define as global function in order to reduce upvalue count in hooks
-function log(hook, callingScript, ...)
-    local vargs = {...}
-    
-    if eventCallback and not hook:AreArgsIgnored(vargs) then
-        local call = {
-            script = callingScript,
-            args = vargs
-        }
-        eventCallback(hook, call)
-    end
-end
 
-local function setEvent(callback)
+local eventCallback
+		
+function setEvent(callback)
     if not eventCallback then
-        eventCallback = callback
+        eventCallback = function(hook,...)
+        	local vargs = {...}
+        	if not hook.Ignored and not hook:AreArgsIgnored(vargs) then
+			    if not hook:AreArgsIgnored(vargs) then
+					task.spawn(function()
+			        	callback(hook,unpack(vargs))
+	        		end)
+			    end
+	        end
+        end
     end
 end
 
@@ -42,31 +40,39 @@ hookCache = {}
 
 function Hook.new(closure)
     local hook = {}
-    local data = closure.Data
-
-    if getInfo(data).nups < 1 then
+    if getInfo(closure.Data).nups < 1 then
         return
-    elseif hookCache[data] then
+    elseif hookCache[closure.Data] then
         return false
     end
-
-    local wrap = { hook, data }
-    hookCache[data] = hookFunction(data, function(...)
+	
+    --hookCache[closure.Data]
+    local old; old = hookFunction(closure.Data, function(...)
         local vargs = {...}
-        local uHook = wrap[1]
-        local uData = wrap[2]
-
-        if not uHook.Ignored and not uHook:AreArgsIgnored(vargs) then
-            log(uHook, getCallingScript(), ...)
+        local call = {
+			script = getfenv(0).script,
+			args = vargs
+		}
+		
+	    if eventCallback then
+			task.spawn(function()
+				eventCallback(hook, call)
+			end)
+		end
+	    
+	    
+        if not hook.Blocked and not hook:AreArgsBlocked(vargs) then
+            return old(...)
+    	else
+			return
         end
-
-        if not uHook.Blocked and not uHook:AreArgsBlocked(vargs) then
-            return hookCache[uData](...)
-        end
+		
+		return old(...)
     end)
-
-    closure.Data = hookCache[data]
-
+    
+	hookCache[closure.Data] = old
+    closure.Data = hookCache[closure.Data]
+	
     hook.Closure = closure
     hook.Calls = 0
     hook.Logs = {}
@@ -85,7 +91,7 @@ function Hook.new(closure)
     hook.IncrementCalls = Hook.incrementCalls
     hook.DecrementCalls = Hook.decrementCalls
 
-    hookMap[data] = hook
+    hookMap[closure.Data] = hook
 
     return hook
 end
