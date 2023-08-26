@@ -18,15 +18,41 @@ local ModuleScanner
 local UpvalueScanner
 local ConstantScanner
 
-getgenv().Conduct = false
+local touchPoints = {}
+local touching = {}
+local conduct = 0
+local pressHold = false
 
-UserInput.InputBegan:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.Touch then
-		Conduct = true
-		input.Changed:Connect(function()
-			if input.UserInputState == Enum.UserInputState.End then
-				Conduct = false
+if signaluis then
+	signaluis:Disconnect()
+end
+
+if signaluis then signaluis:Disconnect() end
+getgenv().signaluis = UserInputService.InputBegan:Connect(function(input,gp)
+	if (input.UserInputType == Enum.UserInputType.Touch) then
+		conduct += 1
+		local key, Signal = conduct, true
+		touchPoints[key] = input.Position
+		local startClock = os.clock()
+		task.spawn(function()
+			local threshold = 0.4
+			repeat task.wait() until (os.clock()-startClock) > threshold  or not Signal
+			if (os.clock()-startClock) < threshold then return end
+			pressHold = true
+		end)
+		Signal = UserInputService.InputEnded:Connect(function()
+			for i, v in pairs(touching) do
+				if v == true then
+					--print(i,v)
+				end
+				touching[i] = false
 			end
+			touchPoints[key] = nil
+			conduct -= 1
+			Signal:Disconnect()
+			Signal = nil
+			task.wait()
+			pressHold = false
 		end)
 	end
 end)
