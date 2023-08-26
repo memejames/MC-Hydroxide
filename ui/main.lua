@@ -109,7 +109,7 @@ end
 local dragging, dragStart, startPos
 
 Drag.InputBegan:Connect(function(input)
-	if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch and not Conduct) then
+	if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch and conduct == 0) then
 		local dragEnded 
 
 		dragging = true
