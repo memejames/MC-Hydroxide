@@ -22,7 +22,7 @@ getgenv().touchPoints = {}
 getgenv().touching = {}
 getgenv().conduct = 0
 getgenv().pressHold = false
-
+getgenv().mainBase = Interface.Base
 if signaluis then
 	signaluis:Disconnect()
 end
