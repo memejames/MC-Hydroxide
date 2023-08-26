@@ -62,11 +62,18 @@ end
 local dragging, dragStart, startPos, Conduct
 
 UserInputService.InputBegan:Connect(function(input)
-	
+	if input.UserInputType == Enum.UserInputType.Touch then
+		Conduct = true
+		input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				Conduct = false
+			end
+		end)
+	end
 end)
 
 Drag.InputBegan:Connect(function(input)
-	if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then
+	if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch and not Conduct) then
 		local dragEnded 
 
 		dragging = true
