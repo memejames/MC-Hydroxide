@@ -187,9 +187,6 @@ useMethods(globalMethods)
 local HttpService = game:GetService("HttpService")
 local releaseInfo = HttpService:JSONDecode(game:HttpGetAsync("https://api.github.com/repos/" .. user .. "/Hydroxide/releases"))[1]
 
-readFile = nil
-writeFile = nil
-
 if readFile and writeFile then
     local hasFolderFunctions = (isFolder and makeFolder) ~= nil
     local ran, result = pcall(readFile, "__oh_version.txt")
