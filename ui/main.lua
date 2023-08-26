@@ -18,7 +18,7 @@ local ModuleScanner
 local UpvalueScanner
 local ConstantScanner
 
-getgenv().Conduct
+getgenv().Conduct = false
 
 UserInput.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.Touch then
