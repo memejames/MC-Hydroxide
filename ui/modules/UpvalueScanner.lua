@@ -107,13 +107,22 @@ local function addElement(upvalueLog, upvalue, index, value, temporary)
     elementLog.Value.Label.TextColor3 = oh.Constants.Syntax[elementValueType]
     elementLog.Value.Icon.Image = oh.Constants.Types[elementValueType]
 
-    elementLog.MouseButton1Click:Connect(function()
-    	warn("elementLog")
+    elementLog.MouseButton2Click:Connect(function()
         selectedUpvalue = upvalue
         selectedUpvalueLog = upvalueLog
         selectedElement = index
         elementTypeDropdown:SetSelected(typeof(value))
         elementContextMenu:Show()
+    end)
+    
+    elementLog.MouseButton1Click:Connect(function()
+    	if pressHold then
+	        selectedUpvalue = upvalue
+	        selectedUpvalueLog = upvalueLog
+	        selectedElement = index
+	        elementTypeDropdown:SetSelected(typeof(value))
+	        elementContextMenu:Show()
+        end
     end)
 
     return elementLog
@@ -180,7 +189,7 @@ local function addUpvalue(upvalue, temporary)
     upvalueLog.Value.TextColor3 = oh.Constants.Syntax[valueType]
     upvalueLog.Icon.Image = oh.Constants.Types[valueType]
 
-    upvalueLog.MouseButton1Click:Connect(function()
+    upvalueLog.MouseButton2Click:Connect(function()
         selectedUpvalue = upvalue
         selectedUpvalueLog = upvalueLog
         upvalueTypeDropdown:SetSelected(typeof(upvalue.Value))
@@ -191,6 +200,20 @@ local function addUpvalue(upvalue, temporary)
             upvalueContextMenu:Show()
         end
     end)
+    
+	upvalueLog.MouseButton1Click:Connect(function()
+		if pressHold then
+	        selectedUpvalue = upvalue
+	        selectedUpvalueLog = upvalueLog
+	        upvalueTypeDropdown:SetSelected(typeof(upvalue.Value))
+	
+	        if upvalue.Scanned then
+	            tableContextMenu:Show()
+	        else
+	            upvalueContextMenu:Show()
+	        end
+		end
+	end)
 
     return upvalueLog
 end
@@ -252,7 +275,7 @@ function Log.new(closure)
     instance.Size = UDim2.new(1, 0, 0, logHeight)
     instance:FindFirstChild("Name").Text = closure.Name
     
-    listButton:SetCallback(function()
+    listButton:SetRightCallback(function()
         selectedLog = log
     end)
     
@@ -314,13 +337,13 @@ upvalueList:BindContextMenu(closureContextMenu)
 
 deepSearch:SetCallback(function(enabled)
     deepSearchFlag = enabled
-    
     if enabled then
         MessageBox.Show("Notice", "Deep searching may result in longer scan times!", MessageType.OK)
     end
 end)
 
 Search.MouseButton1Click:Connect(addUpvalues)
+
 SearchBox.FocusLost:Connect(function(returned)
     if returned then
         addUpvalues()
@@ -386,7 +409,7 @@ modifyUpvalueButtons.Set.MouseButton1Click:Connect(function()
         selectedUpvalue:Set(newValue)
 
         modifyUpvalueValue.Text = ""
-        modifyUpvalue:Hide()
+        --modifyUpvalue:Hide()
     end
 end)
 
@@ -617,7 +640,6 @@ changeUpvalueContext:SetCallback(changeUpvalue)
 changeTableContext:SetCallback(changeUpvalue)
 
 changeElementContext:SetCallback(function()
-	warn("Executed")
     if selectedUpvalue and selectedElement then
         local index = selectedElement
         local indexType = type(index)
