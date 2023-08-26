@@ -842,10 +842,12 @@ end)
 Methods.SetEvent(function(hook, call)
     local oldContext = getContext()
     setContext(7)
-
+	
     if not removed[hook] then
-        local log = currentLogs[hook] or Log.new(hook)
-        log:IncrementCalls(call)
+		task.spawn(function()
+	        local log = currentLogs[hook] or Log.new(hook)
+	        log:IncrementCalls(call)
+        end)
     end
     
     setContext(oldContext)
