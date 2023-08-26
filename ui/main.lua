@@ -25,6 +25,7 @@ getgenv().pressHold = false
 getgenv().mainBase = Interface.Base
 
 getgenv().MouseInFrame = function(uiobject)
+	local mouse = game:GetService("Players").LocalPlayer:GetMouse()
     local y_cond = uiobject.AbsolutePosition.Y <= mouse.Y and mouse.Y <= uiobject.AbsolutePosition.Y + uiobject.AbsoluteSize.Y
     local x_cond = uiobject.AbsolutePosition.X <= mouse.X and mouse.X <= uiobject.AbsolutePosition.X + uiobject.AbsoluteSize.X
 
