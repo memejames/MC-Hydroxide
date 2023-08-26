@@ -8,8 +8,6 @@ if oh.Cache["ui/main"] then
 	return Interface
 end
 
-warn("main.lua")
-
 import("ui/controls/TabSelector")
 local MessageBox, MessageType = import("ui/controls/MessageBox")
 
@@ -61,9 +59,11 @@ function oh.getStatus()
 	return Status.Text:gsub('• Status: ', '')
 end
 
-local dragging
-local dragStart
-local startPos
+local dragging, dragStart, startPos, Conduct
+
+UserInputService.InputBegan:Connect(function()
+	
+end)
 
 Drag.InputBegan:Connect(function(input)
 	if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then
