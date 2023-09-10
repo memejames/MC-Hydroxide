@@ -81,19 +81,31 @@ function moduleError(err, module)
 	end)
 end
 
-s1, e1, s2, e2, s3, e3, s4, e4, s5, e5, s6, e6 = pcall(function()
+s1, e1 = pcall(function()
 	RemoteSpy = import("ui/modules/RemoteSpy");
-end), pcall(function(err)
+end)
+s2, e2 = pcall(function(err)
 	ClosureSpy = import("ui/modules/ClosureSpy");
-end), pcall(function(err)
+end)
+s3, e3 = pcall(function(err)
 	ScriptScanner = import("ui/modules/ScriptScanner");
-end), pcall(function(err)
+end)
+s4, e4 = pcall(function(err)
 	ModuleScanner = import("ui/modules/ModuleScanner");
-end), pcall(function(err)
+end)
+s5, e5 = pcall(function(err)
 	UpvalueScanner = import("ui/modules/UpvalueScanner");
-end), pcall(function(err)
+end)
+s6, e6 = pcall(function(err)
 	ConstantScanner = import("ui/modules/ConstantScanner"); 
 end)
+
+for i = 1, 6 do
+	moduleResponse = loadstring(string.format("return e%d", i))()
+	if moduleResponse then
+		print(moduleResponse)
+	end
+end
 
 for i = 6, 1 do
 	moduleResponse = loadstring(("return "):format("e%d", i))()
