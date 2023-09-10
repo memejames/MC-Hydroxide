@@ -103,13 +103,6 @@ end)
 for i = 1, 6 do
 	moduleResponse = loadstring(string.format("return e%d", i))()
 	if moduleResponse then
-		print(moduleResponse)
-	end
-end
-
-for i = 6, 1 do
-	moduleResponse = loadstring(("return "):format("e%d", i))()
-	if moduleResponse then
 		moduleError(moduleResponse, moduleId[i])
 	end
 end
