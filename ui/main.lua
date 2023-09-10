@@ -66,7 +66,7 @@ getgenv().signaluis = UserInput.InputBegan:Connect(function(input,gp)
 	end
 end)
 
-function moduleError(err, module)
+function moduleError(err)
 	local message
 	if err:find("valid member") then
 		message = "The UI has updated, please rejoin and restart. If you get this message more than once, screenshot this message and report it in the Hydroxide server.\n\n" .. err
@@ -79,21 +79,24 @@ function moduleError(err, module)
 	end)
 end
 
-local s1, e1, s2, e2, s3, e3, s4, e4, s5, e5, s6, e6, s7, e7 pcall(function()
+local s1, e1, s2, e2, s3, e3, s4, e4, s5, e5, s6, e6 = pcall(function()
 	RemoteSpy = import("ui/modules/RemoteSpy")
 end), pcall(function(err)
-	ClosureSpy = import("ui/modules/ClosureSpy"); moduleError(err, "RemoteSpy")
-end, pcall(function(err)
-	ScriptScanner = import("ui/modules/ScriptScanner"); moduleError(err, "ClosureSpy")
+	ClosureSpy = import("ui/modules/ClosureSpy");
+	ScriptScanner = import("ui/modules/ScriptScanner");
 end), pcall(function(err)
-	ModuleScanner = import("ui/modules/ModuleScanner"); moduleError(err, "ScriptScanner")
+	ModuleScanner = import("ui/modules/ModuleScanner");
 end), pcall(function(err)
-	UpvalueScanner = import("ui/modules/UpvalueScanner"); moduleError(err, "ModuleScanner")
+	UpvalueScanner = import("ui/modules/UpvalueScanner");
 end), pcall(function(err)
-	ConstantScanner = import("ui/modules/ConstantScanner"); moduleError(err, "UpvalueScanner")
-end) pcall(function(err)
-	moduleError(err, "ConstantScanner")
+	ConstantScanner = import("ui/modules/ConstantScanner"); 
 end)
+
+for i = 6, 1 do
+if getfenv()["e" .. tostring(i)] then
+moduleError(getfenv["e" .. tostring(i)])
+end
+end
 
 local constants = {
 	opened = UDim2.new(0.5, -325, 0.5, -175),
