@@ -96,8 +96,9 @@ end), pcall(function(err)
 end)
 
 for i = 6, 1 do
-	if getfenv()["e" .. tostring(i)] then
-		moduleError(loadstring(("return "):format("e%d", i))(), moduleId[i])
+	moduleResponse = loadstring(("return "):format("e%d", i))()
+	if moduleResponse then
+		moduleError(moduleResponse, moduleId[i])
 	end
 end
 
