@@ -66,7 +66,7 @@ getgenv().signaluis = UserInput.InputBegan:Connect(function(input,gp)
 	end
 end)
 
-function moduleError(err)
+function moduleError(err, module)
 	local message
 	if err:find("valid member") then
 		message = "The UI has updated, please rejoin and restart. If you get this message more than once, screenshot this message and report it in the Hydroxide server.\n\n" .. err
@@ -78,6 +78,8 @@ function moduleError(err)
 		Interface:Destroy()
 	end)
 end
+
+local moduleId = {"RemoteSpy","ClosureSpy","ScriptScanner","ModuleScanner","UpvalueScanner","ConstantScanner"}
 
 local s1, e1, s2, e2, s3, e3, s4, e4, s5, e5, s6, e6 = pcall(function()
 	RemoteSpy = import("ui/modules/RemoteSpy")
@@ -95,7 +97,7 @@ end)
 
 for i = 6, 1 do
 	if getfenv()["e" .. tostring(i)] then
-		moduleError(getfenv["e" .. tostring(i)])
+		moduleError(getfenv["e" .. tostring(i)], moduleId[i])
 	end
 end
 
