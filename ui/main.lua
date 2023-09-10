@@ -73,7 +73,7 @@ function moduleError(err, module)
 	if err:find("valid member") then
 		message = "The UI has updated, please rejoin and restart. If you get this message more than once, screenshot this message and report it in the Hydroxide server.\n\n" .. err
 	else
-		message = string.format("Report this error in Hydroxide's server:\n\n%s\n(Module: %s)",err, module)
+		message = string.format("Report this error in Hydroxide's server:\n(Module: %s)\n%s", module, err)
 	end
 
 	MessageBox.Show("An error has occurred", message, MessageType.OK, function()
