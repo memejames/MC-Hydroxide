@@ -83,20 +83,15 @@ end
 
 s1_, e1_ = pcall(function()
 	RemoteSpy = import("ui/modules/RemoteSpy");
-end)
-s2_, e2_ = pcall(function(err)
+end); s2_, e2_ = pcall(function(err)
 	ClosureSpy = import("ui/modules/ClosureSpy");
-end)
-s3_, e3_ = pcall(function(err)
+end); s3_, e3_ = pcall(function(err)
 	ScriptScanner = import("ui/modules/ScriptScanner");
-end)
-s4_, e4_ = pcall(function(err)
+end); s4_, e4_ = pcall(function(err)
 	ModuleScanner = import("ui/modules/ModuleScanner");
-end)
-s5_, e5_ = pcall(function(err)
+end); s5_, e5_ = pcall(function(err)
 	UpvalueScanner = import("ui/modules/UpvalueScanner");
-end)
-s6_, e6_ = pcall(function(err)
+end); s6_, e6_ = pcall(function(err)
 	ConstantScanner = import("ui/modules/ConstantScanner"); 
 end)
 
