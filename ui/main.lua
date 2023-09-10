@@ -71,7 +71,7 @@ function moduleError(err, module)
 	if err:find("valid member") then
 		message = "The UI has updated, please rejoin and restart. If you get this message more than once, screenshot this message and report it in the Hydroxide server.\n\n" .. err
 	else
-		message = "Report this error in Hydroxide's server:\n\n" .. err
+		message = string.format("Report this error in Hydroxide's server:\n\n%s\n(Module: %s)",err, module)
 	end
 
 	MessageBox.Show("An error has occurred", message, MessageType.OK, function()
@@ -80,17 +80,19 @@ function moduleError(err, module)
 end
 
 xpcall(function()
-	RemoteSpy = import("ui/modules/RemoteSpy"); moduleError(err, "RemoteSpy")
+	RemoteSpy = import("ui/modules/RemoteSpy")
 end, function(err)
-	ClosureSpy = import("ui/modules/ClosureSpy"); moduleError(err, "ClosureSpy")
+	ClosureSpy = import("ui/modules/ClosureSpy"); moduleError(err, "RemoteSpy")
 end, function(err)
-	ScriptScanner = import("ui/modules/ScriptScanner"); moduleError(err, "ScriptScanner")
+	ScriptScanner = import("ui/modules/ScriptScanner"); moduleError(err, "ClosureSpy")
 end, function(err)
-	ModuleScanner = import("ui/modules/ModuleScanner"); moduleError(err, "ConstantScanner")
+	ModuleScanner = import("ui/modules/ModuleScanner"); moduleError(err, "ScriptScanner")
 end, function(err)
-	UpvalueScanner = import("ui/modules/UpvalueScanner"); moduleError(err, "ConstantScanner")
+	UpvalueScanner = import("ui/modules/UpvalueScanner"); moduleError(err, "ModuleScanner")
 end, function(err)
-	ConstantScanner = import("ui/modules/ConstantScanner"); moduleError(err, "ConstantScanner")
+	ConstantScanner = import("ui/modules/ConstantScanner"); moduleError(err, "UpvalueScanner")
+end, function(err)
+	moduleError(err, "ConstantScanner")
 end)
 
 local constants = {
