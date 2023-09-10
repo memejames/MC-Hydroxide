@@ -81,7 +81,7 @@ function moduleError(err, module)
 	end)
 end
 
-local s1, e1, s2, e2, s3, e3, s4, e4, s5, e5, s6, e6 = pcall(function()
+s1, e1, s2, e2, s3, e3, s4, e4, s5, e5, s6, e6 = pcall(function()
 	RemoteSpy = import("ui/modules/RemoteSpy");
 end), pcall(function(err)
 	ClosureSpy = import("ui/modules/ClosureSpy");
