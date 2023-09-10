@@ -66,7 +66,7 @@ getgenv().signaluis = UserInput.InputBegan:Connect(function(input,gp)
 	end
 end)
 
-function(err)
+function moduleError(err, module)
 	local message
 	if err:find("valid member") then
 		message = "The UI has updated, please rejoin and restart. If you get this message more than once, screenshot this message and report it in the Hydroxide server.\n\n" .. err
@@ -80,17 +80,17 @@ function(err)
 end
 
 xpcall(function()
-	RemoteSpy = import("ui/modules/RemoteSpy")
+	RemoteSpy = import("ui/modules/RemoteSpy"); moduleError(err, "RemoteSpy")
 end, function(err)
-	ClosureSpy = import("ui/modules/ClosureSpy")
+	ClosureSpy = import("ui/modules/ClosureSpy"); moduleError(err, "ConstantScanner")
 end, function(err)
-	ScriptScanner = import("ui/modules/ScriptScanner")
+	ScriptScanner = import("ui/modules/ScriptScanner"); moduleError(err, "ConstantScanner")
 end, function(err)
-	ModuleScanner = import("ui/modules/ModuleScanner")
+	ModuleScanner = import("ui/modules/ModuleScanner"); moduleError(err, "ConstantScanner")
 end, function(err)
-	UpvalueScanner = import("ui/modules/UpvalueScanner")
+	UpvalueScanner = import("ui/modules/UpvalueScanner"); moduleError(err, "ConstantScanner")
 end, function(err)
-	ConstantScanner = import("ui/modules/ConstantScanner")
+	ConstantScanner = import("ui/modules/ConstantScanner"); moduleError(err, "ConstantScanner")
 end)
 
 local constants = {
