@@ -66,6 +66,8 @@ getgenv().signaluis = UserInput.InputBegan:Connect(function(input,gp)
 	end
 end)
 
+local moduleId = {"RemoteSpy","ClosureSpy","ScriptScanner","ModuleScanner","UpvalueScanner","ConstantScanner"}
+
 function moduleError(err, module)
 	local message
 	if err:find("valid member") then
@@ -79,10 +81,8 @@ function moduleError(err, module)
 	end)
 end
 
-local moduleId = {"RemoteSpy","ClosureSpy","ScriptScanner","ModuleScanner","UpvalueScanner","ConstantScanner"}
-
 local s1, e1, s2, e2, s3, e3, s4, e4, s5, e5, s6, e6 = pcall(function()
-	RemoteSpy = import("ui/modules/RemoteSpy")
+	RemoteSpy = import("ui/modules/RemoteSpy");
 end), pcall(function(err)
 	ClosureSpy = import("ui/modules/ClosureSpy");
 end),
@@ -97,7 +97,7 @@ end)
 
 for i = 6, 1 do
 	if getfenv()["e" .. tostring(i)] then
-		moduleError(getfenv["e" .. tostring(i)], moduleId[i])
+		moduleError(loadstring(("return "):format("e%d", i))(), moduleId[i])
 	end
 end
 
