@@ -93,9 +93,9 @@ end), pcall(function(err)
 end)
 
 for i = 6, 1 do
-if getfenv()["e" .. tostring(i)] then
-moduleError(getfenv["e" .. tostring(i)])
-end
+	if getfenv()["e" .. tostring(i)] then
+		moduleError(getfenv["e" .. tostring(i)])
+	end
 end
 
 local constants = {
