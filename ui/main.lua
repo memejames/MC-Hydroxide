@@ -92,6 +92,7 @@ end); s4_, e4_ = pcall(function(err)
 end); s5_, e5_ = pcall(function(err)
 	UpvalueScanner = import("ui/modules/UpvalueScanner");
 end); s6_, e6_ = pcall(function(err)
+	abc.a = nil
 	ConstantScanner = import("ui/modules/ConstantScanner"); 
 end)
 
