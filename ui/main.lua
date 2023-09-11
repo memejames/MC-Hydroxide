@@ -77,7 +77,7 @@ function moduleError(err, module)
 	end
 
 	MessageBox.Show("An error has occurred", message, MessageType.OK, function()
-		Interface:Destroy()
+		--Interface:Destroy()
 	end)
 end
 
