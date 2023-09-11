@@ -68,12 +68,12 @@ end)
 
 local moduleId = {"RemoteSpy","ClosureSpy","ScriptScanner","ModuleScanner","UpvalueScanner","ConstantScanner"}
 
-function moduleError(err, module)
+function moduleError(err)
 	local message
 	if err:find("valid member") then
 		message = "The UI has updated, please rejoin and restart. If you get this message more than once, screenshot this message and report it in the Hydroxide server.\n\n" .. err
 	else
-		message = string.format("Report this error in Hydroxide's server:\n(Module: %s)\n%s", module, err)
+		message = string.format("Report this error in Hydroxide's server:\n\n%s", err)
 	end
 
 	MessageBox.Show("An error has occurred", message, MessageType.OK, function()
@@ -81,18 +81,16 @@ function moduleError(err, module)
 	end)
 end
 
-s1, e1 = pcall(function()
+xpcall(function()
 	RemoteSpy = import("ui/modules/RemoteSpy");
-end); s2, e2 = pcall(function(err)
 	ClosureSpy = import("ui/modules/ClosureSpy");
-end); s3, e3 = pcall(function(err)
 	ScriptScanner = import("ui/modules/ScriptScanner");
-end); s4, e4 = pcall(function(err)
 	ModuleScanner = import("ui/modules/ModuleScanner");
-end); s5, e5 = pcall(function(err)
 	UpvalueScanner = import("ui/modules/UpvalueScanner");
-end); s6, e6 = pcall(function(err)
 	ConstantScanner = import("ui/modules/ConstantScanner"); 
+	a.a = b
+end, function(err)
+	moduleError(err)
 end)
 
 for i = 1, 6 do
