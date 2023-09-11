@@ -88,7 +88,6 @@ xpcall(function()
 	ModuleScanner = import("ui/modules/ModuleScanner");
 	UpvalueScanner = import("ui/modules/UpvalueScanner");
 	ConstantScanner = import("ui/modules/ConstantScanner"); 
-	a.a = b
 end, function(err)
 	moduleError(err)
 end)
