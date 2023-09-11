@@ -92,14 +92,6 @@ end, function(err)
 	moduleError(err)
 end)
 
-for i = 1, 6 do
-	moduleResponse = loadstring(string.format("return e%d", i))()
-	warn(moduleResponse)
-	if moduleResponse then
-		moduleError(moduleResponse, moduleId[i])
-	end
-end
-
 local constants = {
 	opened = UDim2.new(0.5, -325, 0.5, -175),
 	closed = UDim2.new(0.5, -325, 0, -400),
