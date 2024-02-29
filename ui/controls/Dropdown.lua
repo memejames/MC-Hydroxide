@@ -6,17 +6,18 @@ local dropdownCache = {}
 function Dropdown.new(instance)
     local dropdown = {}
     local selection = instance.Selection
-    local collapseButton = instance.Collapse
 
-    collapseButton.TouchTap:Connect(function()
+    instance.Collapse.MouseButton1Click:Connect(function()
         local collapsed = not dropdown.Collapsed
+
         selection.Visible = not collapsed
         dropdown.Collapsed = collapsed
     end)
 
-    for _, v in pairs(instance.Selection.Clip.List:GetChildren()) do
+    for _i, v in pairs(instance.Selection.Clip.List:GetChildren()) do
         if v:IsA("TextButton") then
-            v.TouchTap:Connect(function()
+            v.MouseButton1Click:Connect(function()
+
                 dropdown:Collapse(v.Name)
             end)
         end
@@ -72,15 +73,12 @@ function Dropdown.setCallback(dropdown, callback)
     end
 end
 
--- touch events for collapsing the dropdown on mobile devices
-local function collapseAllDropdowns()
-    for _, dropdown in pairs(dropdownCache) do
-        dropdown:Collapse()
-    end
-end
-
-local touchInput = UserInput.TouchEnded:Connect(function(input)
-    collapseAllDropdowns()
-end)
+-- oh.Events.DropdownCollapse = UserInput.InputEnded:Connect(function(input)
+--     if input.UserInputType == Enum.UserInputType.MouseButton1 then
+--         for _i, dropdown in pairs(dropdownCache) do
+--             dropdown:Collapse()
+--         end
+--     end
+-- end)
 
 return Dropdown
